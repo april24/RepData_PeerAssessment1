@@ -1,7 +1,7 @@
 ---
 title: "PA1_template"
 author: "Rong Chen"
-
+output: html_document
 ---
 A.Loading and preprocessing the data
 ```{r}
@@ -112,5 +112,4 @@ par(mfrow=c(2,1),mar=c(0,0,1,0),oma=c(2,2,2,2))
 with(weekendmean,plot(interval,steps,type="l",col="blue",main="weekend",ylab="number of steps "))
 with(weekdaymean,plot(interval,steps,type="l",col="blue",main="weekday",xlab="interval"))
 ```
-
 
