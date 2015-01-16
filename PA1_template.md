@@ -3,7 +3,7 @@ title: "PA1_template"
 author: "Rong Chen"
 output: html_document
 ---
-A.Loading and preprocessing the data
+##A.Loading and preprocessing the data
 
 ```r
 data<-read.csv("./activity.csv")
@@ -15,10 +15,10 @@ data$date<-as.POSIXct(data$date)
 data$interval<-as.POSIXct(paste(hours,mins,sep = ":"),format=" %H:%M") 
 ```
 
-B.What is mean total number of steps taken per day?
+##B.What is mean total number of steps taken per day?
 
 
-1.Make a histogram of the total number of steps taken each day
+###1.Make a histogram of the total number of steps taken each day
 
 ```r
 totalsteps<-aggregate(steps~date,data,sum)
@@ -28,7 +28,7 @@ hist(totalsteps$steps,breaks=10,main="histogram of the total number of steps tak
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 
-2.Calculate and report the mean and median total number of steps taken per day
+###2.Calculate and report the mean and median total number of steps taken per day
 
 ```r
 mean(totalsteps$steps)
@@ -47,9 +47,9 @@ median(totalsteps$steps)
 ```
 
 
-C.What is the average daily activity pattern?
+##C.What is the average daily activity pattern?
 
-1.Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+###1.Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 ```r
 meansteps<-aggregate(steps~interval,data=data,FUN=mean)
@@ -60,7 +60,7 @@ plot(meansteps$interval,meansteps$steps,type="l",col="blue",main="average number
 
 
 
-2.Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+###2.Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 ```r
 subset(meansteps,steps>200)
@@ -68,15 +68,15 @@ subset(meansteps,steps>200)
 
 ```
 ##                interval    steps
-## 104 2015-01-14 08:35:00 206.1698
+## 104 2015-01-16 08:35:00 206.1698
 ```
 With the images in question 1, we can get that the interval contains the maximun number of steps is "08:35"
 
 
 
-D.Imputing missing values
+##D.Imputing missing values
 
-1.Calculate and report the total number of missing values in the dataset 
+###1.Calculate and report the total number of missing values in the dataset 
 
 ```r
 missing<-subset(data,is.na(steps) ==TRUE)
@@ -88,11 +88,11 @@ nrow(missing)
 ```
 Total number of missing values in the dataset is 2304
 
-2.Devise a strategy for filling in all of the missing values in the dataset.
+###2.Devise a strategy for filling in all of the missing values in the dataset.
 
 The strategy I choose:  "mean of this interval over all days". I will make the mean total number of steps taken per day(from B.2) evenly distributed over the day (288 intervals)
 
-3.Create a new dataset that is equal to the original dataset but with the missing data filled in.
+###3.Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```r
 newdata<-data
@@ -105,7 +105,7 @@ for (i in 1:17568){
 ```
 
 
-4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+###4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 ```r
 newtotalsteps<-aggregate(steps~date,newdata,sum)
@@ -131,9 +131,9 @@ median(newtotalsteps$steps)
 ```
 The mean is same as before, the median is a little bigger.
 
-E.Are there differences in activity patterns between weekdays and weekends?
+##E.Are there differences in activity patterns between weekdays and weekends?
 
-1.Create a new factor variable in the dataset with two levels "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+###1.Create a new factor variable in the dataset with two levels "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
 ```r
 for (i in 1:17568){
@@ -149,7 +149,7 @@ for (i in 1:17568){
 }
 ```
 
-2.Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+###2.Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 ```r
 weekday<-subset(newdata,week=="weekday")
